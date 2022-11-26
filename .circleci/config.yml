@@ -11,12 +11,12 @@ orbs:
 workflows:
   build: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
-    jobs:
+    jobs:          
       - cypress/run:
-          # there are no jobs to follow this one
-          # so no need to save the workspace files (saves time)
           no-workspace: true
-          # runs Cypress tests by default
+          build: npm run build
+          start: npm run start
+          wait-on: 'http://localhost:3000'
           post-steps:
             - run:
                 name: Jest tests
