@@ -13,16 +13,10 @@ workflows:
   build:
     jobs:
       - node/test
-      # - node/run:
-      #   npm-run: build
-      
-  # e2e: # This is the name of the workflow, feel free to change it to better match your workflow.
-  #   # Inside the workflow, you define the jobs you want to run.
-  #   jobs:
-  #     - cypress/run:
-  #         start: npm run start
-  #         wait-on: 'http://localhost:3000'
-  #         post-steps:
-  #           - run:
-  #               name: Jest tests
-  #               command: npm test
+      - node/run:
+         npm-run: build
+         npm-run: start
+  e2e:
+    jobs:
+      - cypress/run:
+          wait-on: 'http://localhost:3000'
