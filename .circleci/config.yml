@@ -12,10 +12,8 @@ workflows:
   build: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
     jobs:          
-      - next/build:
-          steps:
-            install: npm run install
-            build: npm run build
+      - cypress/install:
+          build: npm run build
       - cypress/run:
           no-workspace: true
           start: npm run start
