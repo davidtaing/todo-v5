@@ -18,6 +18,7 @@ jobs:
           command: npm run build
       - run:
           command: npm run start
+          background: true
 
 workflows:
   test:
