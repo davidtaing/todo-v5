@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "cypress": "cypress open",
     "start": "next start",
+    "cypress": "cypress open",
     "test": "jest",
     "test:watch": "jest --watch",
     "e2e": "start-server-and-test start http://localhost:3000 cypress",
