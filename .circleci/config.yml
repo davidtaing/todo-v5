@@ -7,15 +7,17 @@ orbs:
   node: circleci/node@5.0.3
   cypress: cypress-io/cypress@2.2.0
 
-jobs: 
+jobs:
   build-and-run:
-    docker: 
+    docker:
       - image: cimg/node:lts
     steps:
-      - node/run: 
-          npm-run: build
-      - node/run: 
-          npm-run: start
+      - checkout
+      - node/install-packages
+      - run:
+          command: npm run build
+      - run:
+          command: npm run start
 
 workflows:
   test:
