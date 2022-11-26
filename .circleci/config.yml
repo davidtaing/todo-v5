@@ -10,13 +10,20 @@ orbs:
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  build: # This is the name of the workflow, feel free to change it to better match your workflow.
-    # Inside the workflow, you define the jobs you want to run.
-    jobs:          
-      - cypress/run:
-          start: npm run start
-          wait-on: 'http://localhost:3000'
-          post-steps:
-            - run:
-                name: Jest tests
-                command: npm test
+  build:
+    jobs:
+      - node/install
+      - node/test
+      # - node/run:
+      #   npm-run: build
+      
+  # e2e: # This is the name of the workflow, feel free to change it to better match your workflow.
+  #   # Inside the workflow, you define the jobs you want to run.
+  #   jobs:
+  #     - cypress/run:
+  #         start: npm run start
+  #         wait-on: 'http://localhost:3000'
+  #         post-steps:
+  #           - run:
+  #               name: Jest tests
+  #               command: npm test
