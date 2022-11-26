@@ -12,8 +12,10 @@ jobs:
     docker: 
       - image: cimg/node:lts
     steps:
-      - node/run: build
-      - node/run: start
+      - node/run: 
+          npm-run: build
+      - node/run: 
+          npm-run: start
 
 workflows:
   test:
