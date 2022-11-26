@@ -15,7 +15,6 @@ workflows:
       - node/test
       - node/run:
          npm-run: build
-         npm-run: start
   e2e:
     jobs:
       - cypress/run:
