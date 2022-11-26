@@ -12,7 +12,6 @@ orbs:
 workflows:
   build:
     jobs:
-      - node/install
       - node/test
       # - node/run:
       #   npm-run: build
