@@ -8,7 +8,7 @@ orbs:
   cypress: cypress-io/cypress@2.2.0
 
 jobs:
-  build-and-run:
+  e2e-tests:
     docker:
       - image: cimg/node:lts
     steps:
@@ -23,10 +23,9 @@ workflows:
   test:
     jobs:
       - node/test
-  run-next-server:
+  run-e2e-tests:
     jobs:
-      - build-and-run
-  e2e:
-    jobs:
+      - e2e-tests
       - cypress/run:
           wait-on: 'http://localhost:3000'
+      
