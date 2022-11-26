@@ -30,5 +30,3 @@ workflows:
       - cypress/run:
           requires:
             - e2e-tests
-          wait-on: 'http://localhost:3000'
-      
