@@ -7,18 +7,21 @@ orbs:
   node: circleci/node@5.0.3
   cypress: cypress-io/cypress@2.2.0
 
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+jobs: 
+  build-and-run:
+    docker: 
+      - image: cimg/node:lts
+    steps:
+      - run: npm run build
+      - run: npm run start
+
 workflows:
   test:
     jobs:
       - node/test
-  build-and-start:
+  run-next-server:
     jobs:
-      - node/run:
-          npm-run: build
-      - node/run:
-          npm-run: start
+      - build-and-run
   e2e:
     jobs:
       - cypress/run:
