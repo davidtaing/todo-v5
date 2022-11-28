@@ -9,14 +9,14 @@ export default function Home() {
 
   if (query.isLoading) {
     return (
-      <div className="homepage">
+      <div className="homepage" aria-label="home-page">
         <div>Loading</div>
       </div>
     );
   }
 
   return (
-    <div className="homepage">
+    <div className="homepage" aria-label="home-page">
       <ul>
         {query.data?.todos.map((item: any) => (
           <li key={item.id} aria-label="todo-item">

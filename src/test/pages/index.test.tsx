@@ -14,7 +14,9 @@ describe("Homepage", () => {
   test("smoke test if Home renders", () => {
     const container = render(<Home />, { wrapper: TestQueryClientWrapper });
 
-    expect(container).toBeTruthy();
+    const home = container.queryByLabelText(/home-page/i);
+
+    expect(home).toBeTruthy();
   });
 
   it("fetches Todos and renders a list of items", async () => {
