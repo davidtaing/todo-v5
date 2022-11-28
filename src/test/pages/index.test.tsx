@@ -19,7 +19,7 @@ describe("Homepage", () => {
     expect(home).toBeTruthy();
   });
 
-  it("fetches Todos and renders a list of items", async () => {
+  it("renders a list of items when it fetches todos", async () => {
     server.use(
       rest.get("http://localhost:3000/api/todos", async (req, res, ctx) => {
         const todos: Todo[] = [
