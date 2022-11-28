@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getTodos } from "../features/Todo/api/getTodo";
+import { TodoList } from "../features/Todo/TodoList";
 
 export default function Home() {
   const query = useQuery({
@@ -17,13 +18,7 @@ export default function Home() {
 
   return (
     <div className="homepage" aria-label="home-page">
-      <ul>
-        {query.data?.todos.map((item: any) => (
-          <li key={item.id} aria-label="todo-item">
-            {item.title}
-          </li>
-        ))}
-      </ul>
+      <TodoList todos={query.data.todos} />
     </div>
   );
 }
