@@ -9,21 +9,21 @@ export const getTodos = rest.get(
         id: "1",
         userId: "1",
         title: "Sleep Early",
-        completed: false,
+        completed: true,
         created: new Date(),
       },
       {
         id: "2",
         userId: "1",
         title: "Wake Up Early",
-        completed: false,
+        completed: true,
         created: new Date(),
       },
       {
         id: "3",
         userId: "1",
         title: "Walk the Cat",
-        completed: false,
+        completed: true,
         created: new Date(),
       },
       {
@@ -72,4 +72,26 @@ export const getTodos = rest.get(
   }
 );
 
-export const TodoHandlers = [getTodos];
+const deleteTodo = rest.delete(
+  "http://localhost:3000/api/todos/:todoId",
+  async (req, res, ctx) => {
+    const { id } = req.params as { id: string };
+
+    const todo: Todo = {
+      id: id,
+      userId: "1",
+      title: "Sleep Early",
+      completed: false,
+      created: new Date(),
+    };
+
+    return res(
+      ctx.status(200),
+      ctx.json({
+        todo,
+      })
+    );
+  }
+);
+
+export const TodoHandlers = [getTodos, deleteTodo];
