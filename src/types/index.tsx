@@ -6,3 +6,7 @@ export interface Todo {
   completed: boolean;
   created: Date;
 }
+
+export interface GetTodoResponse {
+  todos: Todo[];
+}
