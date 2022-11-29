@@ -86,6 +86,7 @@ const deleteTodo = rest.delete(
     };
 
     return res(
+      ctx.delay(2000),
       ctx.status(200),
       ctx.json({
         todo,
