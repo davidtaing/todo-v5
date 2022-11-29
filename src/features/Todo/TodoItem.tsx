@@ -8,8 +8,10 @@ interface TodoItemProps {
 
 export const TodoItem = ({ todo, onClick }: TodoItemProps) => {
   return (
-    <li key={todo.id} aria-label="todo-item" onClick={onClick}>
-      {todo.title}
+    <li key={todo.id} aria-label="todo-item">
+      <div onClick={onClick} aria-label="todo-item body">
+        {todo.title}
+      </div>
 
       {todo.completed ? <DeleteTodoButton /> : null}
     </li>

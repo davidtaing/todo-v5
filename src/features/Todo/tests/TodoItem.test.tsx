@@ -44,9 +44,7 @@ describe("DeleteTodoButton", () => {
 
     render(<TodoList todos={todos} />);
 
-    const todoItem = screen.getByRole("listitem", {
-      name: /todo-item/i,
-    });
+    const todoItem = screen.getByLabelText(/todo-item body/i);
     await user.click(todoItem);
 
     expect(result.current).toMatchObject({ asPath: "/todos/1" });
