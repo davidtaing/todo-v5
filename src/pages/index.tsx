@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getTodos } from "../features/Todo/api/getTodo";
-import { TodoList } from "../features/Todo/TodoList";
+import { TodoList } from "../features/Todo";
 
 export default function Home() {
   const query = useQuery({
