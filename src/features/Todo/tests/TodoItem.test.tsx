@@ -20,4 +20,32 @@ describe("DeleteTodoButton", () => {
 
     expect(todoItem).toBeTruthy();
   });
+
+  test("if DeleteTodoButton does not render when Todo is not Completed", () => {
+    const todo = {
+      id: "1",
+      userId: "1",
+      title: "Test if DeleteTodoButton does not render",
+      completed: false,
+      created: new Date(),
+    };
+
+    render(<TodoItem todo={todo} onClick={() => {}} />);
+
+    expect(screen.queryByRole("button", { name: "❌" })).toBeFalsy();
+  });
+
+  test("if DeleteTodoButton renders when the Todo is completed", () => {
+    const todo = {
+      id: "1",
+      userId: "1",
+      title: "Test if DeleteTodoButton does not render",
+      completed: true,
+      created: new Date(),
+    };
+
+    render(<TodoItem todo={todo} onClick={() => {}} />);
+
+    expect(screen.getByRole("button", { name: "❌" })).toBeTruthy();
+  });
 });

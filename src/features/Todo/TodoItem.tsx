@@ -1,4 +1,5 @@
 import { Todo } from "../../types";
+import { DeleteTodoButton } from "./DeleteTodoButton";
 
 interface TodoItemProps {
   todo: Todo;
@@ -9,6 +10,8 @@ export const TodoItem = ({ todo, onClick }: TodoItemProps) => {
   return (
     <li key={todo.id} aria-label="todo-item" onClick={onClick}>
       {todo.title}
+
+      {todo.completed ? <DeleteTodoButton /> : null}
     </li>
   );
 };
