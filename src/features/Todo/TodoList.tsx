@@ -19,6 +19,7 @@ export const TodoList = ({ todos }: TodoListProps) => {
         <TodoItem
           key={item.id}
           onClick={() => onTodoItemClick(item.id)}
+          onDeleteClick={() => { }}
           todo={item}
         />
       ))}

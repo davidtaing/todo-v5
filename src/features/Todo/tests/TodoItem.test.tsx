@@ -1,6 +1,7 @@
 import { render, renderHook, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useRouter } from "next/router";
+import { TestQueryClientWrapper } from "../../../test/utils/TestQueryClientWrapper";
 import { Todo } from "../../../types";
 
 import { TodoItem } from "../TodoItem";
@@ -16,7 +17,9 @@ describe("DeleteTodoButton", () => {
       created: new Date(),
     };
 
-    render(<TodoItem todo={todo} onClick={() => {}} />);
+    render(
+      <TodoItem todo={todo} onClick={() => {}} onDeleteClick={() => {}} />
+    );
 
     const todoItem = screen.queryByRole("listitem", {
       name: /todo-item/i,
@@ -42,7 +45,7 @@ describe("DeleteTodoButton", () => {
       return useRouter();
     });
 
-    render(<TodoList todos={todos} />);
+    render(<TodoList todos={todos} />, { wrapper: TestQueryClientWrapper });
 
     const todoItem = screen.getByLabelText(/todo-item body/i);
     await user.click(todoItem);
@@ -59,7 +62,9 @@ describe("DeleteTodoButton", () => {
       created: new Date(),
     };
 
-    render(<TodoItem todo={todo} onClick={() => {}} />);
+    render(
+      <TodoItem todo={todo} onClick={() => {}} onDeleteClick={() => {}} />
+    );
 
     expect(screen.queryByRole("button", { name: "❌" })).toBeFalsy();
   });
@@ -73,7 +78,9 @@ describe("DeleteTodoButton", () => {
       created: new Date(),
     };
 
-    render(<TodoItem todo={todo} onClick={() => {}} />);
+    render(
+      <TodoItem todo={todo} onClick={() => {}} onDeleteClick={() => {}} />
+    );
 
     expect(screen.getByRole("button", { name: "❌" })).toBeTruthy();
   });
