@@ -39,7 +39,7 @@ describe("DeleteTodoButton", () => {
     const todo = {
       id: "1",
       userId: "1",
-      title: "Test if DeleteTodoButton does not render",
+      title: "Test if DeleteTodoButton renders",
       completed: true,
       created: new Date(),
     };
