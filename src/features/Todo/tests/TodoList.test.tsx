@@ -9,7 +9,7 @@ describe("TodoList", () => {
   it("navigates to /todo/:todoId when clicked", async () => {
     const todos: Todo[] = [
       {
-        id: 1,
+        id: "1",
         userId: "1",
         title: "Sleep Early",
         completed: false,
