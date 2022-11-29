@@ -1,5 +1,6 @@
 import { Todo } from "../../types";
 import { useRouter } from "next/router";
+import { TodoItem } from "./TodoItem";
 
 interface TodoListProps {
   todos: Todo[];
@@ -14,14 +15,12 @@ export const TodoList = ({ todos }: TodoListProps) => {
 
   return (
     <ul>
-      {todos.map((item: any) => (
-        <li
+      {todos.map((item: Todo) => (
+        <TodoItem
           key={item.id}
-          aria-label="todo-item"
           onClick={() => onTodoItemClick(item.id)}
-        >
-          {item.title}
-        </li>
+          todo={item}
+        />
       ))}
     </ul>
   );
