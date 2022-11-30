@@ -5,12 +5,12 @@ import { TodoList } from "./TodoList";
 import { getTodos } from "./api";
 
 export const TodoListPage = () => {
-  const query = useQuery({
+  const getQuery = useQuery({
     queryKey: ["todos"],
     queryFn: getTodos,
   });
 
-  if (query.isLoading) {
+  if (getQuery.isLoading) {
     return (
       <div aria-label="todo-list page">
         <div>Loading</div>
@@ -20,7 +20,7 @@ export const TodoListPage = () => {
 
   return (
     <div aria-label="todo-list page">
-      <TodoList todos={query.data.todos} />
+      <TodoList todos={getQuery.data.todos} />
     </div>
   );
 };
