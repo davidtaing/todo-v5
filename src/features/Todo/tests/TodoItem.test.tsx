@@ -45,7 +45,9 @@ describe("DeleteTodoButton", () => {
       return useRouter();
     });
 
-    render(<TodoList todos={todos} />, { wrapper: TestQueryClientWrapper });
+    render(<TodoList todos={todos} onDeleteTodo={() => {}} />, {
+      wrapper: TestQueryClientWrapper,
+    });
 
     const todoItem = screen.getByLabelText(/todo-item body/i);
     await user.click(todoItem);

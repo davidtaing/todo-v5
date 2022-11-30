@@ -96,9 +96,8 @@ describe("TodoListPage", () => {
     expect(beforeTodoItems).toHaveLength(1);
 
     const deleteTodoButton = screen.getByRole("button", { name: "❌" });
-    await user.click(deleteTodoButton);
 
-    await waitForElementToBeRemoved(() => screen.getByText(/sleep early/i));
+    await user.click(deleteTodoButton);
 
     const afterTodoItems = screen.queryAllByRole("listitem", {
       name: /todo-item/i,
