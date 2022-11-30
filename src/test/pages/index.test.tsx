@@ -15,7 +15,7 @@ describe("Homepage", () => {
   test("smoke test if Home renders", () => {
     const container = render(<Home />, { wrapper: TestQueryClientWrapper });
 
-    const home = container.queryByLabelText(/home-page/i);
+    const home = container.queryByLabelText(/home-route/i);
 
     expect(home).toBeTruthy();
   });

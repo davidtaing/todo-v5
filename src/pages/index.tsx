@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getTodos } from "../features/Todo/api";
 import { TodoList } from "../features/Todo";
 
-export default function Home() {
+export default function HomeRoute() {
   const query = useQuery({
     queryKey: ["todos"],
     queryFn: getTodos,
@@ -10,14 +10,14 @@ export default function Home() {
 
   if (query.isLoading) {
     return (
-      <div className="homepage" aria-label="home-page">
+      <div className="home-route" aria-label="home-route">
         <div>Loading</div>
       </div>
     );
   }
 
   return (
-    <div className="homepage" aria-label="home-page">
+    <div className="home-route" aria-label="home-route">
       <TodoList todos={query.data.todos} />
     </div>
   );
