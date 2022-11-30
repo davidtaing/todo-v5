@@ -5,7 +5,6 @@ import { TodoItem } from "./TodoItem";
 
 import { deleteTodo } from "./api";
 import { GetTodoResponse, Todo } from "../../types";
-import { PropsWithChildren } from "react";
 
 interface TodoListProps {
   todos: Todo[];
