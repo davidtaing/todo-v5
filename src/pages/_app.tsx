@@ -6,7 +6,8 @@ import { useState, useEffect } from "react";
 
 const queryClient = new QueryClient();
 
-const API_MOCKING = process.env.NODE_ENV !== "production";
+//const API_MOCKING = process.env.NODE_ENV !== "production";
+const API_MOCKING = true;
 
 export default function App({ Component, pageProps }: AppProps) {
   const [shouldRender, setShouldRender] = useState(API_MOCKING);
