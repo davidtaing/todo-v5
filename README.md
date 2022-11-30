@@ -1,34 +1,37 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Description
+
+This is the fifth version of my Todo Application
+
+## Technologies & Techniques Used
+Test-Driven Development, TypeScript, Next.js, React, TailwindCSS, Jest, React Query, React Testing Library & Mock Service Worker
+
+Note: I haven't decided yet if I want to build a backend for this application.
 
 ## Getting Started
 
-First, run the development server:
+### Running the Developer Server
 
 ```bash
-npm run dev
-# or
-yarn dev
+$ npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the Next.js application.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### Running Tests
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+```bash
+$ npm run test
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+# or tests in watch mode
+$ npm run test:watch
+```
 
-## Learn More
+## General Methodology
+1. Write a smoke test to see if the component renders
+2. Identify a behaviour
+3. Write the full test for the behaviour
+4. Add implementation so that my test passes
+5. Refactor as much as possible
+6. If the surface area is large, I will decompose my changes into smaller commits using `$ git stash`
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+It would be good to see how this process evolves over time.
