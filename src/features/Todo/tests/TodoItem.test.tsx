@@ -55,7 +55,7 @@ describe("DeleteTodoButton", () => {
     expect(result.current).toMatchObject({ asPath: "/todos/1" });
   });
 
-  test("if DeleteTodoButton does not render when Todo is not Completed", () => {
+  test("if DeleteTodoButton is not rendered when Todo is incomplete", () => {
     const todo = {
       id: "1",
       userId: "1",
@@ -71,7 +71,7 @@ describe("DeleteTodoButton", () => {
     expect(screen.queryByRole("button", { name: "❌" })).toBeFalsy();
   });
 
-  test("if DeleteTodoButton renders when the Todo is completed", () => {
+  test("if DeleteTodoButton renders when Todo is complete", () => {
     const todo = {
       id: "1",
       userId: "1",
