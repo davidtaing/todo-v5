@@ -86,7 +86,7 @@ const deleteTodo = rest.delete(
     };
 
     return res(
-      ctx.delay(2000),
+      ctx.delay(100),
       ctx.status(200),
       ctx.json({
         todo,
@@ -110,7 +110,7 @@ const updateTodo = rest.patch(
     };
 
     return res(
-      ctx.delay(2000),
+      ctx.delay(100),
       ctx.status(200),
       ctx.json({
         ...todo,
@@ -124,7 +124,7 @@ const createTodo = rest.post(
   async (req, res, ctx) => {
     const todo = req.json();
 
-    return res(ctx.delay(2000), ctx.status(200), ctx.json(todo));
+    return res(ctx.delay(100), ctx.status(200), ctx.json(todo));
   }
 );
 
