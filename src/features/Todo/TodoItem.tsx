@@ -1,20 +1,25 @@
+import { useRouter } from "next/router";
 import { Todo } from "../../types";
 import { DeleteTodoButton } from "./DeleteTodoButton";
 import { TodoToggle } from "./TodoToggle";
 
 interface TodoItemProps {
   todo: Todo;
-  onClick: () => void;
   onDeleteClick: () => void;
   onToggleClick: () => void;
 }
 
 export const TodoItem = ({
   todo,
-  onClick,
   onDeleteClick,
   onToggleClick,
 }: TodoItemProps) => {
+  const router = useRouter();
+
+  const onClick = () => {
+    router.push(`/todos/${todo.id}`);
+  };
+
   return (
     <li key={todo.id} aria-label="todo-item">
       <TodoToggle value={todo.completed} onToggleClick={onToggleClick} />

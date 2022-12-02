@@ -1,11 +1,9 @@
 import { render, renderHook, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useRouter } from "next/router";
-import { TestQueryClientWrapper } from "../../../test/utils/TestQueryClientWrapper";
 import { Todo } from "../../../types";
 
 import { TodoItem } from "../TodoItem";
-import { TodoList } from "../TodoList";
 
 describe("DeleteTodoButton", () => {
   test("smoke test if its renders", () => {
@@ -18,12 +16,7 @@ describe("DeleteTodoButton", () => {
     };
 
     render(
-      <TodoItem
-        todo={todo}
-        onClick={() => {}}
-        onDeleteClick={() => {}}
-        onToggleClick={() => {}}
-      />
+      <TodoItem todo={todo} onDeleteClick={() => {}} onToggleClick={() => {}} />
     );
 
     const todoItem = screen.queryByRole("listitem", {
@@ -34,15 +27,13 @@ describe("DeleteTodoButton", () => {
   });
 
   it("navigates to /todo/:todoId when clicked", async () => {
-    const todos: Todo[] = [
-      {
-        id: "1",
-        userId: "1",
-        title: "Sleep Early",
-        completed: false,
-        created: new Date(),
-      },
-    ];
+    const todo: Todo = {
+      id: "1",
+      userId: "1",
+      title: "Sleep Early",
+      completed: false,
+      created: new Date(),
+    };
 
     const user = userEvent.setup();
 
@@ -51,14 +42,7 @@ describe("DeleteTodoButton", () => {
     });
 
     render(
-      <TodoList
-        todos={todos}
-        onDeleteTodo={() => {}}
-        onToggleClick={() => {}}
-      />,
-      {
-        wrapper: TestQueryClientWrapper,
-      }
+      <TodoItem todo={todo} onDeleteClick={() => {}} onToggleClick={() => {}} />
     );
 
     const todoItem = screen.getByLabelText(/todo-item body/i);
@@ -77,12 +61,7 @@ describe("DeleteTodoButton", () => {
     };
 
     render(
-      <TodoItem
-        todo={todo}
-        onClick={() => {}}
-        onDeleteClick={() => {}}
-        onToggleClick={() => {}}
-      />
+      <TodoItem todo={todo} onDeleteClick={() => {}} onToggleClick={() => {}} />
     );
 
     expect(screen.queryByRole("button", { name: "❌" })).toBeFalsy();
@@ -98,12 +77,7 @@ describe("DeleteTodoButton", () => {
     };
 
     render(
-      <TodoItem
-        todo={todo}
-        onClick={() => {}}
-        onDeleteClick={() => {}}
-        onToggleClick={() => {}}
-      />
+      <TodoItem todo={todo} onDeleteClick={() => {}} onToggleClick={() => {}} />
     );
 
     expect(screen.getByRole("button", { name: "❌" })).toBeTruthy();
