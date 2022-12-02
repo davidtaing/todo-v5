@@ -5,6 +5,7 @@ import { TodoList } from "./TodoList";
 import { deleteTodo, getTodos, updateTodo } from "./api";
 import { GetTodoResponse, Todo } from "../../types";
 import { TodoItem } from "./TodoItem";
+import { AddTodo } from "./AddTodo";
 
 export const TodoListPage = () => {
   const queryClient = useQueryClient();
@@ -107,6 +108,7 @@ export const TodoListPage = () => {
           ))
         }
       />
+      <AddTodo />
     </div>
   );
 };
