@@ -6,9 +6,14 @@ import { TodoItem } from "./TodoItem";
 interface TodoListProps {
   todos: Todo[];
   onDeleteTodo: (id: string) => void;
+  onToggleClick: (todo: Todo) => void;
 }
 
-export const TodoList = ({ todos, onDeleteTodo }: TodoListProps) => {
+export const TodoList = ({
+  todos,
+  onDeleteTodo,
+  onToggleClick,
+}: TodoListProps) => {
   const router = useRouter();
 
   const onTodoItemClick = (id: string) => {
@@ -22,6 +27,7 @@ export const TodoList = ({ todos, onDeleteTodo }: TodoListProps) => {
           key={item.id}
           onClick={() => onTodoItemClick(item.id)}
           onDeleteClick={() => onDeleteTodo(item.id)}
+          onToggleClick={() => onToggleClick(item)}
           todo={item}
         />
       ))}

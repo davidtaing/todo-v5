@@ -105,4 +105,78 @@ describe("TodoListPage", () => {
 
     expect(afterTodoItems).toHaveLength(0);
   });
+
+  test("toggling a Todo to 'complete' causes DeleteTodoButton to render", async () => {
+    server.use(
+      rest.get("http://localhost:3000/api/todos", async (req, res, ctx) => {
+        const todos: Todo[] = [
+          {
+            id: "1",
+            userId: "1",
+            title: "Sleep Early",
+            completed: false,
+            created: new Date(),
+          },
+        ];
+
+        return res(
+          ctx.status(200),
+          ctx.json({
+            todos,
+          })
+        );
+      })
+    );
+
+    const user = userEvent.setup();
+
+    render(<TodoListPage />, { wrapper: TestQueryClientWrapper });
+
+    await waitForElementToBeRemoved(() => screen.getByText(/loading/i));
+
+    expect(screen.queryByRole("button", { name: "❌" })).toBeFalsy();
+
+    const toggle = screen.getByRole("checkbox");
+
+    await user.click(toggle);
+
+    expect(screen.queryByRole("button", { name: "❌" })).toBeTruthy();
+  });
+
+  test("toggling a Todo to 'incomplete' causes DeleteTodoButton to disappear", async () => {
+    server.use(
+      rest.get("http://localhost:3000/api/todos", async (req, res, ctx) => {
+        const todos: Todo[] = [
+          {
+            id: "1",
+            userId: "1",
+            title: "Sleep Early",
+            completed: true,
+            created: new Date(),
+          },
+        ];
+
+        return res(
+          ctx.status(200),
+          ctx.json({
+            todos,
+          })
+        );
+      })
+    );
+
+    const user = userEvent.setup();
+
+    render(<TodoListPage />, { wrapper: TestQueryClientWrapper });
+
+    await waitForElementToBeRemoved(() => screen.getByText(/loading/i));
+
+    expect(screen.queryByRole("button", { name: "❌" })).toBeTruthy();
+
+    const toggle = screen.getByRole("checkbox");
+
+    await user.click(toggle);
+
+    expect(screen.queryByRole("button", { name: "❌" })).toBeFalsy();
+  });
 });

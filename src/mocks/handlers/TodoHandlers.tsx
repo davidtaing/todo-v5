@@ -95,4 +95,28 @@ const deleteTodo = rest.delete(
   }
 );
 
-export const TodoHandlers = [getTodos, deleteTodo];
+const updateTodo = rest.patch(
+  "http://localhost:3000/api/todos/:todoId",
+  async (req, res, ctx) => {
+    const { id } = req.params as { id: string };
+
+    const todo: Todo = {
+      id: id,
+      userId: "1",
+      title: "Sleep Early",
+      completed: false,
+      created: new Date(),
+      ...req.json(),
+    };
+
+    return res(
+      ctx.delay(2000),
+      ctx.status(200),
+      ctx.json({
+        ...todo,
+      })
+    );
+  }
+);
+
+export const TodoHandlers = [getTodos, deleteTodo, updateTodo];

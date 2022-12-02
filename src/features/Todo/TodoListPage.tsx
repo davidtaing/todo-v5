@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { TodoList } from "./TodoList";
 
-import { deleteTodo, getTodos } from "./api";
+import { deleteTodo, getTodos, updateTodo } from "./api";
 import { GetTodoResponse, Todo } from "../../types";
 
 export const TodoListPage = () => {
@@ -43,7 +43,45 @@ export const TodoListPage = () => {
     },
   });
 
+  const updateTodoMutation = useMutation({
+    mutationFn: updateTodo,
+    onMutate: async (todo: Todo) => {
+      await queryClient.cancelQueries(["todos"]);
+
+      const previousTodos = queryClient.getQueryData<GetTodoResponse>([
+        "todos",
+      ]);
+
+      if (previousTodos) {
+        queryClient.setQueryData<GetTodoResponse>(["todos"], {
+          todos: todos.map((item: Todo) => {
+            if (item.id === todo.id) {
+              return todo;
+            }
+
+            return item;
+          }),
+        });
+      }
+
+      return { previousTodos };
+    },
+    onError: (err, variables, context) => {
+      if (context?.previousTodos) {
+        queryClient.setQueryData<GetTodoResponse>(
+          ["todos"],
+          context.previousTodos
+        );
+      }
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(["todos"]);
+    },
+  });
+
   const onDeleteTodo = (id: string) => deleteTodoMutation.mutate(id);
+  const onToggleClick = (todo: Todo) =>
+    updateTodoMutation.mutate({ ...todo, completed: !todo.completed });
 
   if (getQuery.isLoading) {
     return (
@@ -55,7 +93,11 @@ export const TodoListPage = () => {
 
   return (
     <div aria-label="todo-list page">
-      <TodoList todos={todos} onDeleteTodo={onDeleteTodo} />
+      <TodoList
+        todos={todos}
+        onDeleteTodo={onDeleteTodo}
+        onToggleClick={onToggleClick}
+      />
     </div>
   );
 };

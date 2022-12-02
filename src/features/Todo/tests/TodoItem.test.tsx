@@ -18,7 +18,12 @@ describe("DeleteTodoButton", () => {
     };
 
     render(
-      <TodoItem todo={todo} onClick={() => {}} onDeleteClick={() => {}} />
+      <TodoItem
+        todo={todo}
+        onClick={() => {}}
+        onDeleteClick={() => {}}
+        onToggleClick={() => {}}
+      />
     );
 
     const todoItem = screen.queryByRole("listitem", {
@@ -45,9 +50,16 @@ describe("DeleteTodoButton", () => {
       return useRouter();
     });
 
-    render(<TodoList todos={todos} onDeleteTodo={() => {}} />, {
-      wrapper: TestQueryClientWrapper,
-    });
+    render(
+      <TodoList
+        todos={todos}
+        onDeleteTodo={() => {}}
+        onToggleClick={() => {}}
+      />,
+      {
+        wrapper: TestQueryClientWrapper,
+      }
+    );
 
     const todoItem = screen.getByLabelText(/todo-item body/i);
     await user.click(todoItem);
@@ -65,7 +77,12 @@ describe("DeleteTodoButton", () => {
     };
 
     render(
-      <TodoItem todo={todo} onClick={() => {}} onDeleteClick={() => {}} />
+      <TodoItem
+        todo={todo}
+        onClick={() => {}}
+        onDeleteClick={() => {}}
+        onToggleClick={() => {}}
+      />
     );
 
     expect(screen.queryByRole("button", { name: "❌" })).toBeFalsy();
@@ -81,7 +98,12 @@ describe("DeleteTodoButton", () => {
     };
 
     render(
-      <TodoItem todo={todo} onClick={() => {}} onDeleteClick={() => {}} />
+      <TodoItem
+        todo={todo}
+        onClick={() => {}}
+        onDeleteClick={() => {}}
+        onToggleClick={() => {}}
+      />
     );
 
     expect(screen.getByRole("button", { name: "❌" })).toBeTruthy();

@@ -6,12 +6,18 @@ interface TodoItemProps {
   todo: Todo;
   onClick: () => void;
   onDeleteClick: () => void;
+  onToggleClick: () => void;
 }
 
-export const TodoItem = ({ todo, onClick, onDeleteClick }: TodoItemProps) => {
+export const TodoItem = ({
+  todo,
+  onClick,
+  onDeleteClick,
+  onToggleClick,
+}: TodoItemProps) => {
   return (
     <li key={todo.id} aria-label="todo-item">
-      <TodoToggle />
+      <TodoToggle value={todo.completed} onToggleClick={onToggleClick} />
       <div onClick={onClick} aria-label="todo-item body">
         {todo.title}
       </div>
