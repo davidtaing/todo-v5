@@ -119,4 +119,13 @@ const updateTodo = rest.patch(
   }
 );
 
-export const TodoHandlers = [getTodos, deleteTodo, updateTodo];
+const createTodo = rest.post(
+  "http://localhost:3000/api/todos",
+  async (req, res, ctx) => {
+    const todo = req.json();
+
+    return res(ctx.delay(2000), ctx.status(200), ctx.json(todo));
+  }
+);
+
+export const TodoHandlers = [getTodos, deleteTodo, updateTodo, createTodo];

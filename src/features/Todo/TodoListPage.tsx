@@ -2,7 +2,13 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { TodoList } from "./TodoList";
 
-import { deleteTodo, getTodos, updateTodo } from "./api";
+import {
+  deleteTodo,
+  getTodos,
+  updateTodo,
+  createTodo,
+  CreateTodoSchema,
+} from "./api";
 import { GetTodoResponse, Todo } from "../../types";
 import { TodoItem } from "./TodoItem";
 import { AddTodo } from "./AddTodo";
@@ -81,9 +87,50 @@ export const TodoListPage = () => {
     },
   });
 
+  const createTodoMutation = useMutation({
+    mutationFn: createTodo,
+    onMutate: async (createTodoRequestBody: CreateTodoSchema) => {
+      await queryClient.cancelQueries(["todos"]);
+
+      const previousTodos = queryClient.getQueryData<GetTodoResponse>([
+        "todos",
+      ]);
+
+      const newTodo = {
+        id: "",
+        userId: "",
+        completed: false,
+        create: Date.now(),
+        ...createTodoRequestBody,
+      };
+
+      if (previousTodos) {
+        queryClient.setQueryData<GetTodoResponse>(["todos"], {
+          todos: [...todos, newTodo],
+        });
+      }
+
+      return { previousTodos };
+    },
+    onError: (err, variables, context) => {
+      if (context?.previousTodos) {
+        queryClient.setQueryData<GetTodoResponse>(
+          ["todos"],
+          context.previousTodos
+        );
+      }
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(["todos"]);
+    },
+  });
+
   const onDeleteTodo = (id: string) => deleteTodoMutation.mutate(id);
   const onToggleClick = (todo: Todo) =>
     updateTodoMutation.mutate({ ...todo, completed: !todo.completed });
+  const onCreateTodo = (createTodoRequestBody: CreateTodoSchema) => {
+    createTodoMutation.mutate(createTodoRequestBody);
+  };
 
   if (getQuery.isLoading) {
     return (
@@ -108,7 +155,7 @@ export const TodoListPage = () => {
           ))
         }
       />
-      <AddTodo />
+      <AddTodo onCreateTodo={onCreateTodo} />
     </div>
   );
 };
