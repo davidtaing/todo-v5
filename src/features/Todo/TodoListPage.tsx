@@ -4,6 +4,7 @@ import { TodoList } from "./TodoList";
 
 import { deleteTodo, getTodos, updateTodo } from "./api";
 import { GetTodoResponse, Todo } from "../../types";
+import { TodoItem } from "./TodoItem";
 
 export const TodoListPage = () => {
   const queryClient = useQueryClient();
@@ -95,8 +96,16 @@ export const TodoListPage = () => {
     <div aria-label="todo-list page">
       <TodoList
         todos={todos}
-        onDeleteTodo={onDeleteTodo}
-        onToggleClick={onToggleClick}
+        render={(data) =>
+          data.map((item: Todo) => (
+            <TodoItem
+              key={item.id}
+              onDeleteClick={() => onDeleteTodo(item.id)}
+              onToggleClick={() => onToggleClick(item)}
+              todo={item}
+            />
+          ))
+        }
       />
     </div>
   );
