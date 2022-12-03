@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { CreateTodoSchema } from "./api";
 
 interface AddTodoProps {
@@ -6,20 +7,23 @@ interface AddTodoProps {
 }
 
 export const AddTodo = ({ onCreateTodo, disabled }: AddTodoProps) => {
+  const [title, setTitle] = useState("");
+
   const onSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
 
-    const target = e.target as typeof e.target & {
-      title: { value: string };
-    };
-
-    onCreateTodo({ title: target.title.value });
+    setTitle("");
+    onCreateTodo({ title });
   };
 
   return (
-    <form aria-label="add-todo" onSubmit={onSubmit}>
+    <form aria-label="add-todo" onSubmit={onSubmit} method="POST">
       <fieldset disabled={disabled}>
-        <input placeholder="Add Todo" />
+        <input
+          placeholder="Add Todo"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
       </fieldset>
     </form>
   );

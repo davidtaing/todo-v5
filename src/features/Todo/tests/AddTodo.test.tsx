@@ -28,5 +28,18 @@ describe("AddTodo", () => {
 
     expect(screen.queryByDisplayValue(/^test/i)).toBeFalsy();
   });
+
+  it("flushes input when submitted", async () => {
+    const user = userEvent.setup();
+
+    render(<AddTodo onCreateTodo={() => {}} disabled={false} />);
+
+    const addTodoInput = screen.getByPlaceholderText(/add todo/i);
+
+    await user.click(addTodoInput);
+    await user.keyboard("test todo");
+    await user.keyboard("[enter]");
+
+    expect(screen.queryByDisplayValue(/test/i)).toBeFalsy();
   });
 });
