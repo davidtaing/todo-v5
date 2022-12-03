@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CreateTodoSchema } from "./api";
 
 interface AddTodoProps {
@@ -12,9 +12,12 @@ export const AddTodo = ({ onCreateTodo, disabled }: AddTodoProps) => {
   const onSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
 
-    setTitle("");
     onCreateTodo({ title });
   };
+
+  useEffect(() => {
+    if (!disabled) setTitle("");
+  }, [disabled]);
 
   return (
     <form aria-label="add-todo" onSubmit={onSubmit} method="POST">

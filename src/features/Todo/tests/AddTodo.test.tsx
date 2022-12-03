@@ -29,16 +29,23 @@ describe("AddTodo", () => {
     expect(screen.queryByDisplayValue(/^test/i)).toBeFalsy();
   });
 
-  it("flushes input when submitted", async () => {
+  it("flushes input when disabled changes from true to false", async () => {
     const user = userEvent.setup();
 
-    render(<AddTodo onCreateTodo={() => {}} disabled={false} />);
+    const { rerender } = render(
+      <AddTodo onCreateTodo={() => {}} disabled={false} />
+    );
 
     const addTodoInput = screen.getByPlaceholderText(/add todo/i);
 
     await user.click(addTodoInput);
     await user.keyboard("test todo");
     await user.keyboard("[enter]");
+
+    expect(screen.queryByDisplayValue(/test/i)).toBeTruthy();
+
+    rerender(<AddTodo onCreateTodo={() => {}} disabled={true} />);
+    rerender(<AddTodo onCreateTodo={() => {}} disabled={false} />);
 
     expect(screen.queryByDisplayValue(/test/i)).toBeFalsy();
   });
