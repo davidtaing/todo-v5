@@ -7,7 +7,7 @@ import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
 import { server } from "../../../mocks/server";
 
-import { TodoListPage } from "../TodoListPage";
+import { TodoListPage } from "../components/TodoListPage";
 
 import { Todo } from "../../../types";
 import { TestQueryClientWrapper } from "../../../test/utils/TestQueryClientWrapper";

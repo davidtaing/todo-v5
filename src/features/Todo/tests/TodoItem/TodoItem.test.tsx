@@ -1,9 +1,9 @@
 import { render, renderHook, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useRouter } from "next/router";
-import { Todo } from "../../../types";
+import { Todo } from "../../../../types";
 
-import { TodoItem } from "../TodoItem";
+import { TodoItem } from "../../components/TodoItem";
 
 describe("DeleteTodoButton", () => {
   test("smoke test if its renders", () => {

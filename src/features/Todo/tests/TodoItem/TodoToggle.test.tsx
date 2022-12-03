@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 
-import { TodoToggle } from "../TodoToggle";
+import { TodoToggle } from "../../components/TodoItem/TodoToggle";
 
 describe("TodoToggle", () => {
   test("smoke test if it renders", () => {

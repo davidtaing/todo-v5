@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { CreateTodoSchema } from "./api";
+import { CreateTodoSchema } from "../api";
 
 interface AddTodoProps {
   onCreateTodo: (createTodoRequestBody: CreateTodoSchema) => void;

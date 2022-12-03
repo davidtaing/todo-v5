@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { Todo } from "../../types";
+import { Todo } from "../../../../types";
 import { DeleteTodoButton } from "./DeleteTodoButton";
 import { TodoToggle } from "./TodoToggle";
 

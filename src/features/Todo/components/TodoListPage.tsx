@@ -9,9 +9,9 @@ import {
   updateTodo,
   createTodo,
   CreateTodoSchema,
-} from "./api";
-import { GetTodoResponse, Todo } from "../../types";
-import { TodoItem } from "./TodoItem";
+} from "../api";
+import { GetTodoResponse, Todo } from "../../../types";
+import { TodoItem } from "./TodoItem/TodoItem";
 import { AddTodo } from "./AddTodo";
 
 export const TodoListPage = () => {

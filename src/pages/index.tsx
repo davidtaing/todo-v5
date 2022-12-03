@@ -1,4 +1,4 @@
-import { TodoListPage } from "../features/Todo/TodoListPage";
+import { TodoListPage } from "../features/Todo";
 
 export default function HomeRoute() {
   return (

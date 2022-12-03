@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { AddTodo } from "../AddTodo";
+import { AddTodo } from "../components/AddTodo";
 
 describe("AddTodo", () => {
   test("smoke test if it renders", () => {
