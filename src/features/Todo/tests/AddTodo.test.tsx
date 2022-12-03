@@ -7,7 +7,7 @@ describe("AddTodo", () => {
   test("smoke test if it renders", () => {
     render(<AddTodo onCreateTodo={() => {}} disabled={true} />);
 
-    expect(screen.queryByLabelText(/add-todo/i)).toBeTruthy();
+    expect(screen.queryByLabelText(/^add-todo$/i)).toBeTruthy();
   });
 
   it("displays 'Add Todo' as placeholder text", () => {
