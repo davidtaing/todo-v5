@@ -1,5 +1,6 @@
 import { rest } from "msw";
 import { Todo } from "../../types";
+import { getRandomInt } from "../../utils/utils";
 
 export const getTodos = rest.get(
   "http://localhost:3000/api/todos",
@@ -122,9 +123,9 @@ const updateTodo = rest.patch(
 const createTodo = rest.post(
   "http://localhost:3000/api/todos",
   async (req, res, ctx) => {
-    const todo = req.json();
+    const todo = { id: getRandomInt(100, 200), ...req.json() };
 
-    return res(ctx.delay(100), ctx.status(200), ctx.json(todo));
+    return res(ctx.delay(250), ctx.status(200), ctx.json(todo));
   }
 );
 

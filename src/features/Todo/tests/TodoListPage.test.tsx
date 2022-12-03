@@ -212,4 +212,47 @@ describe("TodoListPage", () => {
 
     expect(todoItem).toBeTruthy();
   });
+
+  it("prevents creating another todo when the createTodoMutation is running", async () => {
+    server.use(
+      rest.get("http://localhost:3000/api/todos", async (req, res, ctx) => {
+        const todos: Todo[] = [];
+
+        return res(
+          ctx.status(200),
+          ctx.json({
+            todos,
+          })
+        );
+      })
+    );
+
+    const user = userEvent.setup();
+
+    render(<TodoListPage />, { wrapper: TestQueryClientWrapper });
+
+    await waitForElementToBeRemoved(() => screen.getByText(/^loading/i));
+
+    const addTodoInput = screen.getByPlaceholderText(/^add todo/i);
+
+    await user.click(addTodoInput);
+    await user.keyboard("test todo");
+    await user.keyboard("[enter]");
+
+    const todoItemsBefore = screen.queryByRole("listitem", {
+      name: /todo-item/i,
+    });
+
+    expect(todoItemsBefore).toBeTruthy();
+
+    await user.click(addTodoInput);
+    await user.keyboard("test todo");
+    await user.keyboard("[enter]");
+
+    const todoItemsAfter = screen.queryAllByRole("listitem", {
+      name: /todo-item/i,
+    });
+
+    expect(todoItemsAfter).toHaveLength(1);
+  });
 });

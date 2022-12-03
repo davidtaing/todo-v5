@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { TodoList } from "./TodoList";
@@ -14,6 +15,7 @@ import { TodoItem } from "./TodoItem";
 import { AddTodo } from "./AddTodo";
 
 export const TodoListPage = () => {
+  const dedupeCreateRequest = useRef(false);
   const queryClient = useQueryClient();
   const getQuery = useQuery({
     queryKey: ["todos"],
@@ -91,6 +93,7 @@ export const TodoListPage = () => {
     mutationFn: createTodo,
     onMutate: async (createTodoRequestBody: CreateTodoSchema) => {
       await queryClient.cancelQueries(["todos"]);
+      dedupeCreateRequest.current = true;
 
       const previousTodos = queryClient.getQueryData<GetTodoResponse>([
         "todos",
@@ -121,6 +124,7 @@ export const TodoListPage = () => {
       }
     },
     onSettled: () => {
+      dedupeCreateRequest.current = false;
       queryClient.invalidateQueries(["todos"]);
     },
   });
@@ -129,7 +133,8 @@ export const TodoListPage = () => {
   const onToggleClick = (todo: Todo) =>
     updateTodoMutation.mutate({ ...todo, completed: !todo.completed });
   const onCreateTodo = (createTodoRequestBody: CreateTodoSchema) => {
-    createTodoMutation.mutate(createTodoRequestBody);
+    if (dedupeCreateRequest.current === false)
+      createTodoMutation.mutate(createTodoRequestBody);
   };
 
   if (getQuery.isLoading) {
@@ -155,7 +160,10 @@ export const TodoListPage = () => {
           ))
         }
       />
-      <AddTodo onCreateTodo={onCreateTodo} disabled={false} />
+      <AddTodo
+        onCreateTodo={onCreateTodo}
+        disabled={dedupeCreateRequest.current}
+      />
     </div>
   );
 };
