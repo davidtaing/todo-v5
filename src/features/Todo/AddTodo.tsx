@@ -2,9 +2,10 @@ import { CreateTodoSchema } from "./api";
 
 interface AddTodoProps {
   onCreateTodo: (createTodoRequestBody: CreateTodoSchema) => void;
+  disabled: boolean;
 }
 
-export const AddTodo = ({ onCreateTodo }: AddTodoProps) => {
+export const AddTodo = ({ onCreateTodo, disabled }: AddTodoProps) => {
   const onSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
 
@@ -17,7 +18,9 @@ export const AddTodo = ({ onCreateTodo }: AddTodoProps) => {
 
   return (
     <form aria-label="add-todo" onSubmit={onSubmit}>
-      <input placeholder="Add Todo" />
+      <fieldset disabled={disabled}>
+        <input placeholder="Add Todo" />
+      </fieldset>
     </form>
   );
 };

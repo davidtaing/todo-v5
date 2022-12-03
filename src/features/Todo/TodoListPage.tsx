@@ -155,7 +155,7 @@ export const TodoListPage = () => {
           ))
         }
       />
-      <AddTodo onCreateTodo={onCreateTodo} />
+      <AddTodo onCreateTodo={onCreateTodo} disabled={false} />
     </div>
   );
 };
