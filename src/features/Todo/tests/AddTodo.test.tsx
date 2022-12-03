@@ -26,6 +26,7 @@ describe("AddTodo", () => {
     await user.click(addTodoInput);
     await user.keyboard("test");
 
-    expect(screen.queryByPlaceholderText(/^test/i)).toBeFalsy();
+    expect(screen.queryByDisplayValue(/^test/i)).toBeFalsy();
+  });
   });
 });
