@@ -200,7 +200,7 @@ describe("TodoListPage", () => {
 
     await waitForElementToBeRemoved(() => screen.getByText(/^loading/i));
 
-    const addTodoInput = screen.getByPlaceholderText(/^add todo/i);
+    const addTodoInput = screen.getByPlaceholderText(/^new todo/i);
 
     await user.click(addTodoInput);
     await user.keyboard("test todo");
@@ -233,7 +233,7 @@ describe("TodoListPage", () => {
 
     await waitForElementToBeRemoved(() => screen.getByText(/^loading/i));
 
-    const addTodoInput = screen.getByPlaceholderText(/^add todo/i);
+    const addTodoInput = screen.getByPlaceholderText(/^new todo/i);
 
     await user.click(addTodoInput);
     await user.keyboard("test todo");

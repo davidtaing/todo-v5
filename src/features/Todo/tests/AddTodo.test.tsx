@@ -13,7 +13,7 @@ describe("AddTodo", () => {
   it("displays 'Add Todo' as placeholder text", () => {
     render(<AddTodo onCreateTodo={() => {}} disabled={true} />);
 
-    expect(screen.queryByPlaceholderText(/add todo/i)).toBeTruthy();
+    expect(screen.queryByPlaceholderText(/new todo/i)).toBeTruthy();
   });
 
   it("prevents input when disabled", async () => {
@@ -21,7 +21,7 @@ describe("AddTodo", () => {
 
     render(<AddTodo onCreateTodo={() => {}} disabled={true} />);
 
-    const addTodoInput = screen.getByPlaceholderText(/add todo/i);
+    const addTodoInput = screen.getByPlaceholderText(/new todo/i);
 
     await user.click(addTodoInput);
     await user.keyboard("test");
@@ -36,7 +36,7 @@ describe("AddTodo", () => {
       <AddTodo onCreateTodo={() => {}} disabled={false} />
     );
 
-    const addTodoInput = screen.getByPlaceholderText(/add todo/i);
+    const addTodoInput = screen.getByPlaceholderText(/new todo/i);
 
     await user.click(addTodoInput);
     await user.keyboard("test todo");

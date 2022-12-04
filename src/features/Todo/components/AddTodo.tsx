@@ -28,7 +28,7 @@ export const AddTodo = ({ onCreateTodo, disabled }: AddTodoProps) => {
     >
       <fieldset disabled={disabled}>
         <input
-          placeholder="Add Todo"
+          placeholder="New Todo"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           className="text-center w-full border border-slate-400 rounded py-2 px-3"
