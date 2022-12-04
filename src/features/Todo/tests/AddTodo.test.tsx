@@ -49,4 +49,20 @@ describe("AddTodo", () => {
 
     expect(screen.queryByDisplayValue(/test/i)).toBeFalsy();
   });
+
+  it("cannot be submitted when the input is empty", async () => {
+    const user = userEvent.setup();
+
+    const submitHandler = jest.fn();
+
+    render(<AddTodo onCreateTodo={submitHandler} disabled={false} />);
+
+    const addTodoInput = screen.getByPlaceholderText(/new todo/i);
+    const addTodoButton = screen.getByRole("button", { name: "Add Todo" });
+
+    await user.click(addTodoInput);
+    await user.click(addTodoButton);
+
+    expect(submitHandler).toHaveBeenCalledTimes(0);
+  });
 });
