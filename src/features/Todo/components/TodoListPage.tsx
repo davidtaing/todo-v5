@@ -146,7 +146,7 @@ export const TodoListPage = () => {
   }
 
   return (
-    <div aria-label="todo-list page">
+    <div aria-label="todo-list page" className="md:max-w-xl md:mx-auto">
       <TodoList
         todos={todos}
         render={(data) =>
