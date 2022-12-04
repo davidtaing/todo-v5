@@ -8,7 +8,7 @@ export const TodoToggle = ({ value, onToggleClick }: TodoToggleProps) => {
     <button
       role="checkbox"
       aria-checked={value}
-      className="border border-red-500 h-4 p-4"
+      className="border rounded-full border-slate-400 h-6 w-6"
       onClick={onToggleClick}
     />
   );
