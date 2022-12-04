@@ -21,15 +21,25 @@ export const TodoItem = ({
   };
 
   return (
-    <li key={todo.id} aria-label="todo-item">
+    <li
+      key={todo.id}
+      aria-label="todo-item"
+      className="flex justify-between gap-4 p-2 border"
+    >
       <TodoToggle value={todo.completed} onToggleClick={onToggleClick} />
-      <div onClick={onClick} aria-label="todo-item body">
+      <div
+        onClick={onClick}
+        aria-label="todo-item body"
+        className={`${todo.completed ? "line-through" : ""}`}
+      >
         {todo.title}
       </div>
 
-      {todo.completed ? (
-        <DeleteTodoButton onDeleteClick={onDeleteClick} />
-      ) : null}
+      <div className="block w-6 h-6">
+        {todo.completed ? (
+          <DeleteTodoButton onDeleteClick={onDeleteClick} />
+        ) : null}
+      </div>
     </li>
   );
 };
