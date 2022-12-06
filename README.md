@@ -1,10 +1,14 @@
 # Description
 
-This is the fifth version of my Todo Application. I'm currently building this to practice TDD with React & TypeScript
+This is the fifth version of my Todo Application. I'm currently building this to practice TDD with React & TypeScript.
 
 I'll be streaming most of my progress at https://www.twitch.tv/teeang.
 
-![xobiudhCSV](https://user-images.githubusercontent.com/8443215/204760613-9f696347-dc78-4e08-8217-f585c77ee1ed.gif)
+## I'm making it my mission to get good at TDD and Testing
+![Es8SmVsAsw](https://user-images.githubusercontent.com/8443215/205920484-1705cc8b-436d-49d9-9a89-b372707d9adc.gif)
+
+## Work in Progress - Optimistic Rendering with Mock Service Worker Handlers
+![AnNdOoCnBi](https://user-images.githubusercontent.com/8443215/205921272-4e83d379-4325-41ae-a35f-f20c96658012.gif)
 
 ## Getting Started
 
@@ -24,9 +28,6 @@ $ npm run test
 # or tests in watch mode
 $ npm run test:watch
 ```
-
-![pkFfNu4blD](https://user-images.githubusercontent.com/8443215/204761824-78964bcb-fce9-420b-875a-d1738cbb578b.gif)
-
 
 ## Currently Implemented Features
 
