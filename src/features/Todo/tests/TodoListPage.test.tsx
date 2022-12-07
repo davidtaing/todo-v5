@@ -189,6 +189,47 @@ describe("TodoListPage", () => {
   });
 
   describe("updating todos", () => {
+    it("optimistically updates a Todo", async () => {
+      server.use(
+        rest.get("http://localhost:3000/api/todos", async (req, res, ctx) => {
+          const todos: Todo[] = [
+            {
+              id: "1",
+              userId: "1",
+              title: "Todo has been",
+              completed: false,
+              created: new Date(),
+            },
+          ];
+
+          return res(
+            ctx.status(200),
+            ctx.json({
+              todos,
+            })
+          );
+        })
+      );
+
+      const user = userEvent.setup();
+
+      render(<TodoListPage />, { wrapper: TestQueryClientWrapper });
+
+      await waitForElementToBeRemoved(() => screen.getByText(/loading/i));
+
+      const todoItemInput = screen.getByDisplayValue(/^todo has been$/i);
+
+      await user.click(todoItemInput);
+      await user.keyboard(" updated.");
+
+      // trigger blur
+      await user.click(screen.getByLabelText(/todo-list page/i));
+
+      expect(
+        screen.queryByDisplayValue(/^todo has been updated.$/i)
+      ).toBeTruthy();
+    });
+
     it("renders the Delete button when toggled to 'complete'", async () => {
       server.use(
         rest.get("http://localhost:3000/api/todos", async (req, res, ctx) => {
