@@ -108,6 +108,53 @@ describe("TodoListPage", () => {
 
       expect(afterTodoItems).toHaveLength(0);
     });
+
+    it("rerenders item when deleting a todo fails", async () => {
+      server.use(
+        rest.delete(
+          "http://localhost:3000/api/todos/:todoId",
+          async (req, res, ctx) => {
+            const { id } = req.params as { id: string };
+
+            const todo: Todo = {
+              id: id,
+              userId: "1",
+              title: "Sleep Early",
+              completed: false,
+              created: new Date(),
+            };
+
+            return res(
+              ctx.status(500),
+              ctx.json({
+                todo,
+                message: `Failed to delete Todo (id: ${1})`,
+              })
+            );
+          }
+        )
+      );
+
+      const user = userEvent.setup();
+
+      render(<TodoListPage />, { wrapper: TestQueryClientWrapper });
+
+      await waitForElementToBeRemoved(() => screen.getByText(/loading/i));
+
+      const beforeTodoItems = screen.queryAllByRole("listitem", {
+        name: /todo-item/i,
+      });
+
+      const deleteTodoButtons = screen.getAllByRole("button", { name: "❌" });
+
+      await user.click(deleteTodoButtons[0]);
+
+      const afterTodoItems = screen.queryAllByRole("listitem", {
+        name: /todo-item/i,
+      });
+
+      expect(beforeTodoItems.length).toBe(afterTodoItems.length);
+    });
   });
 
   describe("creating todos", () => {
