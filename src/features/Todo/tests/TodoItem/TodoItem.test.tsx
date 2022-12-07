@@ -1,6 +1,5 @@
-import { render, renderHook, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { useRouter } from "next/router";
 import { Todo } from "../../../../types";
 
 import { TodoItem } from "../../components/TodoItem";
@@ -26,29 +25,27 @@ describe("DeleteTodoButton", () => {
     expect(todoItem).toBeTruthy();
   });
 
-  it("navigates to /todo/:todoId when clicked", async () => {
-    const todo: Todo = {
+  it("body changes into an input when clicked", async () => {
+    const user = userEvent.setup();
+
+    const todo = {
       id: "1",
       userId: "1",
-      title: "Sleep Early",
+      title: "Body changes into input",
       completed: false,
       created: new Date(),
     };
 
-    const user = userEvent.setup();
-
-    const { result } = renderHook(() => {
-      return useRouter();
-    });
-
     render(
-      <TodoItem todo={todo} onDeleteClick={() => {}} onToggleClick={() => {}} />
+      <TodoItem todo={todo} onDeleteClick={() => { }} onToggleClick={() => { }} />
     );
 
-    const todoItem = screen.getByLabelText(/todo-item body/i);
-    await user.click(todoItem);
+    const bodyDiv = screen.getByText(/^body changes into input$/i);
 
-    expect(result.current).toMatchObject({ asPath: "/todos/1" });
+    await user.click(bodyDiv);
+
+    expect(screen.queryByText(/^body changes into input$/i)).toBeFalsy();
+    expect(screen.getByDisplayValue(/^body changes into input$/i)).toBeTruthy();
   });
 
   it("does not render DeleteTodoButton when Todo is incomplete", () => {

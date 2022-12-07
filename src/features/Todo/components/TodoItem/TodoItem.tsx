@@ -1,4 +1,4 @@
-import { useRouter } from "next/router";
+import { useState } from "react";
 import { Todo } from "../../../../types";
 import { DeleteTodoButton } from "./DeleteTodoButton";
 import { TodoToggle } from "./TodoToggle";
@@ -14,10 +14,10 @@ export const TodoItem = ({
   onDeleteClick,
   onToggleClick,
 }: TodoItemProps) => {
-  const router = useRouter();
+  const [editable, setEditable] = useState(false);
 
   const onClick = () => {
-    router.push(`/todos/${todo.id}`);
+    setEditable(true);
   };
 
   return (
@@ -27,14 +27,22 @@ export const TodoItem = ({
       className="flex justify-between gap-4 p-2 border"
     >
       <TodoToggle value={todo.completed} onToggleClick={onToggleClick} />
-      <div
-        onClick={onClick}
-        aria-label="todo-item body"
-        className={`${todo.completed ? "line-through" : ""}`}
-      >
-        {todo.title}
-      </div>
-
+      {
+        editable ?
+          <input
+            onClick={onClick}
+            defaultValue={todo.title}
+            className="w-full h-full text-center bg-slate-100"
+          /> :
+          <div
+            onClick={onClick}
+            aria-label="todo-item body"
+            className={`${todo.completed ? "line-through" : ""}`}
+          >
+            {todo.title}
+          </div>
+      }
+      
       <div className="block w-6 h-6">
         {todo.completed ? (
           <DeleteTodoButton onDeleteClick={onDeleteClick} />
