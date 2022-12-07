@@ -17,7 +17,6 @@ describe("DeleteTodoButton", () => {
     render(
       <TodoItem todo={todo} onDeleteClick={() => {}} onToggleClick={() => {}} />
     );
-
     const todoItem = screen.queryByRole("listitem", {
       name: /todo-item/i,
     });
@@ -76,26 +75,20 @@ describe("DeleteTodoButton", () => {
     expect(screen.getByText(/^body reverts from input to div$/i)).toBeTruthy();
   });
 
-  it("does not allow editing when Todo is completed", async () => {
-    const user = userEvent.setup();
-
+  it("renders DeleteTodoButton when Todo is complete", () => {
     const todo = {
       id: "1",
       userId: "1",
-      title: "does not enable editing",
+      title: "Test if DeleteTodoButton renders",
       completed: true,
       created: new Date(),
     };
 
     render(
-      <TodoItem todo={todo} onDeleteClick={() => { }} onToggleClick={() => { }} />
+      <TodoItem todo={todo} onDeleteClick={() => {}} onToggleClick={() => {}} />
     );
 
-    const bodyDiv = screen.getByText(/^does not enable editing$/i);
-
-    await user.click(bodyDiv);
-
-    expect(screen.getByText(/^does not enable editing$/i)).toBeTruthy();
+    expect(screen.getByRole("button", { name: "❌" })).toBeTruthy();
   });
 
   it("does not render DeleteTodoButton when Todo is incomplete", () => {
@@ -112,21 +105,5 @@ describe("DeleteTodoButton", () => {
     );
 
     expect(screen.queryByRole("button", { name: "❌" })).toBeFalsy();
-  });
-
-  it("renders DeleteTodoButton when Todo is complete", () => {
-    const todo = {
-      id: "1",
-      userId: "1",
-      title: "Test if DeleteTodoButton renders",
-      completed: true,
-      created: new Date(),
-    };
-
-    render(
-      <TodoItem todo={todo} onDeleteClick={() => {}} onToggleClick={() => {}} />
-    );
-
-    expect(screen.getByRole("button", { name: "❌" })).toBeTruthy();
   });
 });
