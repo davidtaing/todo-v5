@@ -48,6 +48,34 @@ describe("DeleteTodoButton", () => {
     expect(screen.getByDisplayValue(/^body changes into input$/i)).toBeTruthy();
   });
 
+  it("body reverts back to div on input blur", async () => {
+    const user = userEvent.setup();
+
+    const todo = {
+      id: "1",
+      userId: "1",
+      title: "Body reverts from input to div",
+      completed: false,
+      created: new Date(),
+    };
+
+    render(
+      <TodoItem todo={todo} onDeleteClick={() => { }} onToggleClick={() => { }} />
+    );
+    const bodyDiv = screen.getByText(/^body reverts from input to div$/i);
+    const todoItem = screen.getByRole("listitem", {
+      name: /todo-item/i,
+    });
+
+
+    await user.click(bodyDiv);
+    const bodyInput = screen.getByDisplayValue(/^body reverts from input to div$/i);
+    await user.click(bodyInput);
+    await user.click(todoItem);
+
+    expect(screen.getByText(/^body reverts from input to div$/i)).toBeTruthy();
+  });
+
   it("does not allow editing when Todo is completed", async () => {
     const user = userEvent.setup();
 

@@ -21,6 +21,10 @@ export const TodoItem = ({
       setEditable(true);
   };
 
+  const onInputBlur = () => { 
+    setEditable(false);
+  }
+
   return (
     <li
       key={todo.id}
@@ -32,6 +36,7 @@ export const TodoItem = ({
         editable ?
           <input
             onClick={onClick}
+            onBlur={onInputBlur}
             defaultValue={todo.title}
             className="w-full h-full text-center bg-slate-100"
           /> :
