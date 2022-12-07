@@ -19,6 +19,11 @@ export const useTodoRequests = () => {
   });
   const todos = getTodoQuery.data?.todos;
 
+  const onMutationSettled = () => {
+    if (process.env.NODE_ENV !== "test")
+      queryClient.invalidateQueries(["todos"]);
+  };
+
   const deleteTodoMutation = useMutation({
     mutationFn: deleteTodo,
     onMutate: async (id: string) => {
@@ -44,9 +49,7 @@ export const useTodoRequests = () => {
         );
       }
     },
-    onSettled: () => {
-      queryClient.invalidateQueries(["todos"]);
-    },
+    onSettled: onMutationSettled,
   });
 
   const updateTodoMutation = useMutation({
@@ -80,9 +83,7 @@ export const useTodoRequests = () => {
         );
       }
     },
-    onSettled: () => {
-      queryClient.invalidateQueries(["todos"]);
-    },
+    onSettled: onMutationSettled,
   });
 
   const createTodoMutation = useMutation({
@@ -121,7 +122,7 @@ export const useTodoRequests = () => {
     },
     onSettled: () => {
       dedupeCreateRequest.current = false;
-      queryClient.invalidateQueries(["todos"]);
+      onMutationSettled();
     },
   });
 
