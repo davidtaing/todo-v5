@@ -24,55 +24,26 @@ describe("DeleteTodoButton", () => {
     expect(todoItem).toBeTruthy();
   });
 
-  it("body changes into an input when clicked", async () => {
+  it("does not allow editing when Todo is complete", async () => {
     const user = userEvent.setup();
 
     const todo = {
       id: "1",
       userId: "1",
-      title: "Body changes into input",
-      completed: false,
+      title: "does not enable editing",
+      completed: true,
       created: new Date(),
     };
 
     render(
-      <TodoItem todo={todo} onDeleteClick={() => { }} onToggleClick={() => { }} />
+      <TodoItem todo={todo} onDeleteClick={() => {}} onToggleClick={() => {}} />
     );
-
-    const bodyDiv = screen.getByText(/^body changes into input$/i);
+    const bodyDiv = screen.getByDisplayValue(/^does not enable editing$/i);
 
     await user.click(bodyDiv);
+    await user.keyboard("test");
 
-    expect(screen.queryByText(/^body changes into input$/i)).toBeFalsy();
-    expect(screen.getByDisplayValue(/^body changes into input$/i)).toBeTruthy();
-  });
-
-  it("body reverts back to div on input blur", async () => {
-    const user = userEvent.setup();
-
-    const todo = {
-      id: "1",
-      userId: "1",
-      title: "Body reverts from input to div",
-      completed: false,
-      created: new Date(),
-    };
-
-    render(
-      <TodoItem todo={todo} onDeleteClick={() => { }} onToggleClick={() => { }} />
-    );
-    const bodyDiv = screen.getByText(/^body reverts from input to div$/i);
-    const todoItem = screen.getByRole("listitem", {
-      name: /todo-item/i,
-    });
-
-
-    await user.click(bodyDiv);
-    const bodyInput = screen.getByDisplayValue(/^body reverts from input to div$/i);
-    await user.click(bodyInput);
-    await user.click(todoItem);
-
-    expect(screen.getByText(/^body reverts from input to div$/i)).toBeTruthy();
+    expect(screen.getByDisplayValue(/^does not enable editing$/i)).toBeTruthy();
   });
 
   it("renders DeleteTodoButton when Todo is complete", () => {

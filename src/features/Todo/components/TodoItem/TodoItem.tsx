@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Todo } from "../../../../types";
 import { DeleteTodoButton } from "./DeleteTodoButton";
 import { TodoToggle } from "./TodoToggle";
@@ -14,16 +13,11 @@ export const TodoItem = ({
   onDeleteClick,
   onToggleClick,
 }: TodoItemProps) => {
-  const [editable, setEditable] = useState(false);
+  const variantStyles = todo.completed ? "line-through" : "bg-slate-100";
 
-  const onClick = () => {
-    if (!todo.completed)
-      setEditable(true);
+  const onInputBlur = () => {
+    console.log("onInputBlur");
   };
-
-  const onInputBlur = () => { 
-    setEditable(false);
-  }
 
   return (
     <li
@@ -32,23 +26,14 @@ export const TodoItem = ({
       className="flex justify-between gap-4 p-2 border"
     >
       <TodoToggle value={todo.completed} onToggleClick={onToggleClick} />
-      {
-        editable ?
-          <input
-            onClick={onClick}
-            onBlur={onInputBlur}
-            defaultValue={todo.title}
-            className="w-full h-full text-center bg-slate-100"
-          /> :
-          <div
-            onClick={onClick}
-            aria-label="todo-item body"
-            className={`${todo.completed ? "line-through" : ""}`}
-          >
-            {todo.title}
-          </div>
-      }
-      
+
+      <input
+        onBlur={onInputBlur}
+        defaultValue={todo.title}
+        className={`${variantStyles} w-full h-full text-center`}
+        disabled={todo.completed}
+      />
+
       <div className="block w-6 h-6">
         {todo.completed ? (
           <DeleteTodoButton onDeleteClick={onDeleteClick} />
