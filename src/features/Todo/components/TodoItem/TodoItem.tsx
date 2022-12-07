@@ -17,7 +17,8 @@ export const TodoItem = ({
   const [editable, setEditable] = useState(false);
 
   const onClick = () => {
-    setEditable(true);
+    if (!todo.completed)
+      setEditable(true);
   };
 
   return (

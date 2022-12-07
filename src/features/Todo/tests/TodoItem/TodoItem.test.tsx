@@ -48,6 +48,28 @@ describe("DeleteTodoButton", () => {
     expect(screen.getByDisplayValue(/^body changes into input$/i)).toBeTruthy();
   });
 
+  it("does not allow editing when Todo is completed", async () => {
+    const user = userEvent.setup();
+
+    const todo = {
+      id: "1",
+      userId: "1",
+      title: "does not enable editing",
+      completed: true,
+      created: new Date(),
+    };
+
+    render(
+      <TodoItem todo={todo} onDeleteClick={() => { }} onToggleClick={() => { }} />
+    );
+
+    const bodyDiv = screen.getByText(/^does not enable editing$/i);
+
+    await user.click(bodyDiv);
+
+    expect(screen.getByText(/^does not enable editing$/i)).toBeTruthy();
+  });
+
   it("does not render DeleteTodoButton when Todo is incomplete", () => {
     const todo = {
       id: "1",
